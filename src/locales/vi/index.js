@@ -1,8 +1,8 @@
-import { test } from "./test";
+import { info } from "./info";
 import {header} from "./header";
 import {language} from "./language";
 export default {
-  test,
+  info,
   header,
   language,
 };
