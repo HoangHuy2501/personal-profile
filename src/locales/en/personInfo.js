@@ -15,7 +15,7 @@ export const personInfo = {
     status:"Status",
     objective:{
         classify:"Objective",
-        title:"Aspiring to become a professional Full-stack Developer",
+        title:"Aspiring to become a professional Fullstack Developer",
         des1:"As a four-year student majoring in Information Technology at Duy Tan University with a GPA of 3.37, I have hands-on experience working on real-world web projects using Node.js, Express, React, MongoDB, PostgreSQL, SQL.",
         des2:"With a solid foundation in web development and a strong ability to self-learn, I am eager to pursue a career in the Web Development field. Over the next 3 to 5 years, my goal is to become a professional full-stack developer and contribute to large-scale projects.",
     },

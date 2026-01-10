@@ -15,7 +15,7 @@ export const personInfo = {
     status:"Trạng thái",
     objective:{
         classify:"Mục tiêu",
-        title:"Ước mơ trở thành một nhà phát triển Full-stack chuyên nghiệp.",
+        title:"Ước mơ trở thành một nhà phát triển Fullstack chuyên nghiệp.",
         des1:"Là sinh viên năm tư chuyên ngành Công nghệ Thông tin tại Đại học Duy Tân với điểm trung bình 3.37, tôi có kinh nghiệm thực tế làm việc trên các dự án web thực tế sử dụng Node.js, Express, React, MongoDB, PostgreSQL, SQL.",
         des2:"Với nền tảng vững chắc về phát triển web và khả năng tự học tốt, tôi rất mong muốn theo đuổi sự nghiệp trong lĩnh vực Phát triển Web. Trong 3 đến 5 năm tới, mục tiêu của tôi là trở thành một nhà phát triển full-stack chuyên nghiệp và đóng góp vào các dự án quy mô lớn.",
     },
