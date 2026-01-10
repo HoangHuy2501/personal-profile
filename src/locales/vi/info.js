@@ -6,4 +6,5 @@ export const info = {
     expert: "Kiến thức chuyên sâu về hệ sinh thái React, Nodejs và các nguyên tắc UI/UX hiện đại.",
     view_project: "Xem Dự Án",
     contact: "Liên Hệ Tôi",
+    view_git:"Xem GitHub"
 }

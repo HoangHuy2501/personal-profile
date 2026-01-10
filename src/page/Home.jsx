@@ -48,7 +48,7 @@ function Home() {
         }
     ]);
     return (
-        <div className="mt-16">
+        <div>
         <div className='w-40 h-40 mx-auto  rounded-full overflow-hidden border-[2px] border-black shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all hover:animate-wiggle'>
                 <Image
                 src={wf}
@@ -72,7 +72,7 @@ function Home() {
                 ))}
             </div>
         </div>
-        <div className='mt-52 px-4'>
+        <div className='mt-20 px-4 pb-10'>
             <TechSkill />
         </div>
         </div>
