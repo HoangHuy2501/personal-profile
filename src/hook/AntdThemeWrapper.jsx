@@ -13,6 +13,13 @@ export default function AntdThemeWrapper({ children }) {
           colorBgBase: dark ? "#101922" : "#ffffff",
           colorTextBase: dark ? "#ffffff" : "#0f172a",
         },
+         components: {
+          Card: {
+            style: {
+              transition: "all 0.3s ease",
+            },
+          },
+        },
       }}
     >
       {children}

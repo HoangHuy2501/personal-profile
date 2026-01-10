@@ -65,9 +65,8 @@ function Header() {
                 <div className='md:w-1/6  md:py-4 hidden md:flex '>
                     {button()}
                 </div>
-                
             </div>
-            {open && <div className=' bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-gray-800 shadow-md w-2/5 absolute right-0 text-center h-screen md:hidden z-10'>
+            {open && <div className=' bg-background-light dark:bg-background-dark  dark:border-gray-800 shadow-md w-2/5 fixed right-0 text-center h-screen md:hidden z-10'>
                     {namedev()}
                     {button()}
             </div>}

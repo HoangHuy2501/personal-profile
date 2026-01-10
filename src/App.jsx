@@ -8,7 +8,7 @@ import Home from "./page/Home";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       {/* <Routes>
         <Route path="/*" element={<Layout />} >
         </Route>
