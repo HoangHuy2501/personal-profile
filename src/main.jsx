@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter,HashRouter } from 'react-router-dom'
 import { LanguageProvider } from "./hook/useLanguage.jsx";
 import { ThemeProvider } from './hook/useLightDark.jsx';
 import AntdThemeWrapper from "./hook/AntdThemeWrapper.jsx";
@@ -13,9 +13,9 @@ createRoot(document.getElementById('root')).render(
     <LanguageProvider>
       <ThemeProvider>
         <AntdThemeWrapper>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
       </AntdThemeWrapper>
       </ThemeProvider>
     </LanguageProvider>
