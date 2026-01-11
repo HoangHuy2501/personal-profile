@@ -6,5 +6,6 @@ export const info = {
     expert: "In-depth knowledge of the React, Nodejs ecosystem, and modern UI/UX principles.",
     view_project: "View Projects",
     contact: "Contact Me",
+    des_contact:"Always open to new collaboration opportunities or simply to chat about technology. Let's connect and build amazing things together.",
     view_git:"View GitHub",
 }
