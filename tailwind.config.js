@@ -13,6 +13,7 @@ export default {
         "background-dark": "#101922",
         "text-light": "#101922",
         "text-dark": "#f5f7f8",
+        "text-gray": "#6B7280",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
