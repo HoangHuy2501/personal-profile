@@ -20,6 +20,7 @@ function TimelinePerson() {
                         </div>
                         :
                         <div className='text-gray-500'>
+                            <p><span className='font-bold text-text-light dark:text-text-dark mr-2'>{t.header.menu.project}:</span>{item.project}</p>
                             <p>{item.address}</p>
                             <p>{item.des}</p>
                         </div>

@@ -71,6 +71,7 @@ export const timeline=(t)=>[
         id:2,
         classify:t.personInfo.intern.classify,
         title:t.personInfo.intern.title,
+        project: "Erp Ba Hưng",
         time:t.personInfo.intern.time,
         address:t.personInfo.intern.adrress,
         des:t.personInfo.intern.des

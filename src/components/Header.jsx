@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import wf from '../assets/image/wf.png';
 import { useLanguage } from "../hook/useLanguage";
 import ButtonLightDark from './ButtonLightDark.jsx';
@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import ButtonLanguage from './ButtonLanguage.jsx';
 import clsx from "clsx";
 import{ MenuUnfoldOutlined } from '@ant-design/icons'; // MenuUnfoldOutlined
-function Header() {
+function Header({onclose}) {
     const { t} = useLanguage();
     const [open, setOpen] = useState(false);
     const data=useMemo(()=>[
@@ -28,8 +28,14 @@ function Header() {
             url: '/contact'
         }
     ]);
+    useEffect(() => {
+        if(onclose=== true){
+            setOpen(false);
+        }
+    }, [onclose]);
     const handleOpen=() =>{
-        setOpen(!open);
+            setOpen(!open);
+        
     }
     const namedev=() =>{
         return (
@@ -55,7 +61,7 @@ function Header() {
             </div>
                 <div className='p-3 md:p-5'>
                     {data.map((item)=>(
-                        <NavLink to={item.url} key={item.id} className={({isActive})=>clsx("inline-block px-3 py-1 transition-all hover:-translate-y-[5px]",isActive ? ' text-cyan-500 dark:text-cyan-400 ' :' text-text-light dark:text-text-dark')}
+                        <NavLink to={item.url} key={item.id} onClick={()=> setOpen(false)} className={({isActive})=>clsx("inline-block px-3 py-1 transition-all hover:-translate-y-[5px]",isActive ? ' text-cyan-500 dark:text-cyan-400 ' :' text-text-light dark:text-text-dark')}
                         >{item.title}</NavLink> 
                     ))}
                 </div>

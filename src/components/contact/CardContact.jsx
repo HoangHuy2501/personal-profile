@@ -27,7 +27,7 @@ function CardContact() {
             {dataContact.map((item) => {
                 const Icon = item.icon;
                 return (
-                    <Card ref={ref} onClick={() => handleClick(item)} className={`card-reveal ${show ? "show" : ""} border dark:border-gray-600 rounded-lg px-3 py-1 text-sm font-medium text-text-light dark:text-text-dark`}>
+                    <Card key={item.id} ref={ref} onClick={() => handleClick(item)} className={`card-reveal ${show ? "show" : ""} border dark:border-gray-600 rounded-lg px-3 py-1 text-sm font-medium text-text-light dark:text-text-dark`}>
                         <p className='w-min text-[#258cf4] text-2xl bg-[#afcbe8] px-3 py-1 rounded-lg'><Icon/></p>
                         <h3 className='capitalize text-text-light dark:text-text-dark text-xl'>{item.title}</h3>
                         <p className='text-gray-400'>{item.value}</p>
