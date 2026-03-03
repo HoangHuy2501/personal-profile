@@ -35,5 +35,22 @@ export const dataProject=(t) => [
         FE: "Reactjs, Tailwind, Ant Design",
         DB: "Superbase (PostgreSQL)"
         }
+    },{
+    id:3,
+    title: "G-Food",
+    url: "https://ngviehai29.github.io/G-Food/",
+    position:": Backend",
+    n:1,
+    time: t.month.November + " 2025 - " + t.month.December + " 2025",
+    teamSize: "5",
+    des: "This is a website for managing women's clothing rental stores, allowing customers to view products without having to go to the store to choose. Helps stores closely manage products, rental services and monthly revenue...",
+    acount:{
+        tk:"huy123@gmail.com",
+        mk:"123456"
+    },
+    tech:{
+        BE: "Nodejs, RESTful API, Bcryptjs, Cloudinary",
+        DB: "Neon (PostgreSQL)"
+    }
     }
 ]

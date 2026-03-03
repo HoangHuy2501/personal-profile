@@ -36,7 +36,7 @@ function BoxProject({databox}) {
                         <p className='font-bold'>{t.project.box.technology} :</p>
                         <ul className='list-disc list-inside ml-5'>
                             <li><span>BE :</span> {databox.tech.BE}</li>
-                            <li><span>FE :</span> {databox.tech.FE}</li>
+                            <li><span>FE :</span> {databox.tech.FE || "No data"}</li>
                             <li><span>DB :</span> {databox.tech.DB}</li>
                         </ul>
                     </div>
