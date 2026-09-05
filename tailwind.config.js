@@ -4,11 +4,11 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        "primary": "#258cf4",
         "background-light": "#f5f7f8",
         "background-dark": "#101922",
         "text-light": "#101922",
