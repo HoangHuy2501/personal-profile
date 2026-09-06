@@ -1,0 +1,14 @@
+interface:
+  display_name: Next.js Mint Portfolio
+  short_description: Portfolio nền tối, xanh mint và animation tinh tế
+  default_prompt: Dùng $nextjs-mint-portfolio để thiết kế lại giao diện dự án hiện
+    tại, giữ dữ liệu và kiến trúc Next.js.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

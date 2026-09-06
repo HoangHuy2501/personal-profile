@@ -1,10 +1,14 @@
 'use client';
+
 import React from 'react';
+import { motion, MotionConfig } from 'motion/react';
+import { ArrowDownRight, MapPin } from 'lucide-react';
 import { useLanguage } from '../hook/useLanguage';
 import CardContact from '../components/contact/CardContact';
 
 function Contact() {
   const { t } = useLanguage();
-  return <div className="page-wrap"><div className="max-w-2xl mb-12"><p className="eyebrow mb-3">Start a conversation / 03</p><h1 className="section-title text-text-light dark:text-text-dark">{t.info.contact}</h1><p className="muted mt-5 text-lg">{t.info.des_contact}</p></div><CardContact /><div className="mt-10 h-[280px] sm:h-[380px] overflow-hidden rounded-2xl surface"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4587.957779044791!2d108.16558811135214!3d16.059527339632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219185d37cb4f%3A0xd208a2b0e6bc4d2d!2zODAgVMO0IEhp4buHdSwgSG_DoCBNaW5oLCBMacOqbiBDaGnhu4N1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1768099817292!5m2!1svi!2s" className="w-full h-full border-0" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Google Map" /></div></div>;
+  return <MotionConfig reducedMotion="user"><div className="page-wrap"><motion.header className="page-heading contact-heading" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}><p className="eyebrow mb-3">Start a conversation / 03</p><h1 className="section-title text-text-light dark:text-text-dark">{t.info.contact}</h1><p className="muted mt-5 text-lg max-w-2xl">{t.info.des_contact}</p></motion.header><div className="section-rule mb-6 text-[#0f9f8c]"><p className="eyebrow">Find me online</p><ArrowDownRight size={18} /></div><CardContact /><motion.section className="contact-map mt-10" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><div className="map-label"><MapPin size={16} /> Da Nang, Viet Nam</div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4587.957779044791!2d108.16558811135214!3d16.059527339632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219185d37cb4f%3A0xd208a2b0e6bc4d2d!2zODAgVMO0IEhp4buHdSwgSG_DoCBNaW5oLCBMacOqbiBDaGnhu4N1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1768099817292!5m2!1svi!2s" className="w-full h-full border-0" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Google Map" /></motion.section></div></MotionConfig>;
 }
+
 export default Contact;

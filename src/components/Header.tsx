@@ -1,39 +1,178 @@
-'use client';
-import React, { useEffect, useMemo, useState } from 'react';
-import wf from '../assets/image/wf.png';
-import { useLanguage } from '../hook/useLanguage';
-import ButtonLightDark from './ButtonLightDark';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import ButtonLanguage from './ButtonLanguage';
-import { Menu, X } from 'lucide-react';
-import { localeFromPath, localizedPath, normalizeLocale, type Locale } from '../lib/locale';
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
+import wf from "../assets/image/wf.png";
+import { useLanguage } from "../hook/useLanguage";
+import ButtonLightDark from "./ButtonLightDark";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import ButtonLanguage from "./ButtonLanguage";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import {
+  localeFromPath,
+  localizedPath,
+  normalizeLocale,
+  type Locale,
+} from "../lib/locale";
 
 function Header() {
   const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const [locale, setLocale] = useState<Locale>(() => localeFromPath(pathname) ?? 'en');
+  const [locale, setLocale] = useState<Locale>(
+    () => localeFromPath(pathname) ?? "en",
+  );
   useEffect(() => {
     const pathLocale = localeFromPath(pathname);
     if (pathLocale) setLocale(pathLocale);
-    else if (typeof window !== 'undefined') setLocale(normalizeLocale(window.localStorage.getItem('language')));
+    else if (typeof window !== "undefined")
+      setLocale(normalizeLocale(window.localStorage.getItem("language")));
   }, [pathname]);
-  const data = useMemo(() => [
-    [t.header.menu.home, '/home'], [t.header.menu.about, '/about'], [t.header.menu.project, '/project'], [t.header.menu.contact, '/contact']
-  ], [t]);
-  useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [open]);
-  return <header className="fixed top-0 inset-x-0 z-50 border-b border-slate-200/70 dark:border-slate-700/70 bg-[#f5f7f8]/90 dark:bg-[#0b1726]/90 backdrop-blur-xl">
-    <div className="max-w-[1180px] mx-auto h-20 px-4 sm:px-6 flex items-center justify-between">
-      <Link href={localizedPath('/', locale)} className="flex items-center gap-3" onClick={() => setOpen(false)} aria-label={t.header.namedev}>
-        <img src={wf.src} alt="Nguyen Hoang Huy" className="w-10 h-10 rounded-xl object-cover ring-2 ring-[#0f9f8c]/30" />
-        <span className="hidden sm:block font-semibold tracking-tight text-text-light dark:text-text-dark">{t.header.namedev}</span>
-      </Link>
-      <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">{data.map(([title, url]) => <Link key={url} href={localizedPath(url, locale)} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${pathname === localizedPath(url, locale) || (url === '/home' && pathname === localizedPath('/', locale)) ? 'bg-[#0f9f8c] text-white' : 'text-slate-600 dark:text-slate-300 hover:text-[#0f9f8c]'}`}>{title}</Link>)}</nav>
-      <div className="hidden md:flex items-center gap-2"><ButtonLightDark /><ButtonLanguage /></div>
-      <button className="md:hidden p-2 rounded-lg text-text-light dark:text-text-dark" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <X size={22} /> : <Menu size={22} />}</button>
-    </div>
-    {open && <div id="mobile-menu" className="md:hidden border-t border-slate-200 dark:border-slate-700 bg-[#f5f7f8] dark:bg-[#0b1726] px-4 py-5"><nav className="flex flex-col gap-2" aria-label="Mobile navigation">{data.map(([title, url]) => <Link key={url} href={localizedPath(url, locale)} onClick={() => setOpen(false)} className={`px-4 py-3 rounded-xl text-base ${pathname === localizedPath(url, locale) || (url === '/home' && pathname === localizedPath('/', locale)) ? 'bg-[#0f9f8c] text-white' : 'text-text-light dark:text-text-dark'}`}>{title}</Link>)}</nav><div className="flex items-center gap-3 px-4 pt-4"><ButtonLightDark /><ButtonLanguage /></div></div>}
-  </header>;
+  const data = useMemo(
+    () => [
+      [t.header.menu.home, "/home"],
+      [t.header.menu.about, "/about"],
+      [t.header.menu.project, "/project"],
+      [t.header.menu.contact, "/contact"],
+    ],
+    [t],
+  );
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+  const isActive = (url: string) =>
+    pathname === localizedPath(url, locale) ||
+    (url === "/home" && pathname === localizedPath("/", locale));
+
+  return (
+    <header className="site-header fixed top-3 sm:top-4 inset-x-3 sm:inset-x-4 z-50">
+      <div className="header-shell max-w-[1274px] mx-auto px-3 sm:px-5">
+        <div className="header-bar h-[68px] sm:h-[72px] flex items-center justify-between gap-3">
+          <motion.div
+            style={{ transformStyle: "preserve-3d" }}
+            whileHover={{ rotateX: -3, rotateY: 4, scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          >
+            <Link
+              href={localizedPath("/", locale)}
+              className="brand-link flex items-center gap-3"
+              onClick={() => setOpen(false)}
+              aria-label={t.header.namedev}
+            >
+              <span className="brand-avatar">
+                <img
+                  src={wf.src}
+                  alt="Nguyen Hoang Huy"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-cover"
+                />
+                <i aria-hidden="true" />
+              </span>
+              <span className="hidden sm:block">
+                <strong className="block text-sm font-semibold tracking-tight text-white">
+                  {t.header.namedev}
+                </strong>
+                <small className="block mt-0.5 text-[10px] uppercase tracking-[.18em] text-slate-400">
+                  Full-stack developer
+                </small>
+              </span>
+            </Link>
+          </motion.div>
+          <nav
+            className="nav-pill hidden md:flex items-center gap-1"
+            aria-label="Main navigation"
+          >
+            {data.map(([title, url]) => (
+              <Link
+                key={url}
+                href={localizedPath(url, locale)}
+                aria-current={isActive(url) ? "page" : undefined}
+                className={`header-link px-4 py-2 text-sm font-medium transition-colors ${isActive(url) ? "active" : ""}`}
+              >
+                {title}
+              </Link>
+            ))}
+          </nav>
+          <div className="header-actions hidden md:flex items-center gap-2">
+            <ButtonLightDark />
+            <ButtonLanguage />
+            <a
+              className="header-contact"
+              href="mailto:huy04.developer@gmail.com"
+              aria-label="Email Nguyen Hoang Huy"
+            >
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+          <button
+            className="menu-toggle md:hidden"
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X size={21} /> : <Menu size={21} />}
+          </button>
+        </div>
+        <AnimatePresence>
+          {open ? (
+            <motion.div
+              id="mobile-menu"
+              className="mobile-panel md:hidden"
+              initial={{ opacity: 0, y: -8, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -8, height: 0 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+            >
+              <nav
+                className="flex flex-col gap-1"
+                aria-label="Mobile navigation"
+              >
+                {data.map(([title, url], index) => (
+                  <motion.div
+                    key={url}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.04 }}
+                  >
+                    <Link
+                      href={localizedPath(url, locale)}
+                      onClick={() => setOpen(false)}
+                      aria-current={isActive(url) ? "page" : undefined}
+                      className={`mobile-link ${isActive(url) ? "active" : ""}`}
+                    >
+                      {title}
+                      <ArrowUpRight size={15} />
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <div className="mobile-actions">
+                <ButtonLightDark />
+                <ButtonLanguage />
+                <a
+                  className="mobile-email"
+                  href="mailto:huy04.developer@gmail.com"
+                >
+                  Let's connect <ArrowUpRight size={15} />
+                </a>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+    </header>
+  );
 }
+
 export default Header;

@@ -1,41 +1,49 @@
-'use client';
-import React from 'react';
-import { Card } from 'antd';
-import { useLanguage } from '../../hook/useLanguage';
-import { useRevealOnScroll } from '../../hook/useRevealOnScroll';
-import {contactInfo} from '../../lib/dataContact'
-import  openAppOrWeb  from '../../Utils/openAppOrWeb';
-function CardContact() {
-    const { t } = useLanguage();
-    const { ref, show } = useRevealOnScroll();
-    const dataContact = contactInfo(t);
-    const handleClick = (item) => {
-    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+"use client";
 
-    if (item.appUrl && isMobile) {
-      openAppOrWeb(item.appUrl, item.webUrl);
-    } else if (item.webUrl) {
-        if(item.webUrl==="#"){
-            return
-        }else{
-            window.open(item.webUrl, "_blank", "noopener,noreferrer");
-        }
-    }
+import React from "react";
+import { motion } from "motion/react";
+import { useLanguage } from "../../hook/useLanguage";
+import { contactInfo } from "../../lib/dataContact";
+import openAppOrWeb from "../../Utils/openAppOrWeb";
+
+function CardContact() {
+  const { t } = useLanguage();
+  const dataContact = contactInfo(t);
+  const handleClick = (item) => {
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    if (item.appUrl && isMobile) openAppOrWeb(item.appUrl, item.webUrl);
+    else if (item.webUrl && item.webUrl !== "#")
+      window.open(item.webUrl, "_blank", "noopener,noreferrer");
   };
-    return (
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            {dataContact.map((item) => {
-                const Icon = item.icon;
-                return (
-                    <Card key={item.id} ref={ref} role="button" tabIndex={0} onClick={() => handleClick(item)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') handleClick(item); }} className={`surface card-reveal ${show ? "show" : ""} px-3 py-1 text-sm font-medium text-text-light dark:text-text-dark cursor-pointer`}>
-                        <p className='w-min text-[#258cf4] text-2xl bg-[#afcbe8] px-3 py-1 rounded-lg'><Icon/></p>
-                        <h3 className='capitalize text-text-light dark:text-text-dark text-xl'>{item.title}</h3>
-                        <p className='text-gray-400'>{item.value}</p>
-                    </Card>
-                );
-            })}
-        </div>
-    );
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+      {dataContact.map((item, index) => {
+        const Icon = item.icon;
+        return (
+          <motion.button
+            type="button"
+            key={item.id}
+            onClick={() => handleClick(item)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") handleClick(item);
+            }}
+            className="contact-card text-left"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -6, rotateX: -2, rotateY: 2 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: index * 0.06 }}
+          >
+            <span className="contact-icon">
+              <Icon />
+            </span>
+            <span className="contact-title">{item.title}</span>
+            <span className="contact-value">{item.value}</span>
+          </motion.button>
+        );
+      })}
+    </div>
+  );
 }
 
 export default CardContact;
