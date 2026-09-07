@@ -6,7 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nguyen-hoang-huy.vercel.app"),
   title: {
-    default: "Nguyen Hoang Huy | Fresher Full-stack Developer",
+    default: "Nguyen Hoang Huy | Fresher Full-stack Developer ",
     template: "%s | Nguyen Hoang Huy",
   },
   description:
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   keywords: [
     "Nguyen Hoang Huy",
     "Fresher Full-stack Developer",
+    "Portfolio",
+    "Web development",
+    "JavaScript",
+    "Nguyễn Hoàng Huy",
+    "nguyễn hoàng huy",
+    "Fresher Fullstack Developer",
+    "nguyễn hoàng huy portfolio",
     "React",
     "Next.js",
     "Node.js",
