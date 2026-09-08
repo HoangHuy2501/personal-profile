@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model Feedback {
+  id             String          @id @default(cuid())
+  displayName    String
+  content        String
+  idempotencyKey String          @unique
+  createdAt      DateTime        @default(now())
+  replies        FeedbackReply[]
+
+  @@index([createdAt])
+}
+
+model FeedbackReply {
+  id         String   @id @default(cuid())
+  feedbackId String
+  content    String
+  createdAt  DateTime @default(now())
+  feedback   Feedback @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
+
+  @@index([feedbackId, createdAt])
+}
+
+model VisitorVisit {
+  id                 String   @id @default(cuid())
+  sequence           Int      @unique @default(autoincrement())
+  city               String?
+  region             String?
+  country            String?
+  latitude           Float?
+  longitude          Float?
+  source             String   @default("unknown")
+  locationStatus     String   @default("unknown")
+  accuracy           String?
+  noticeVersion      String
+  idempotencyKey     String   @unique
+  createdAt          DateTime @default(now())
+  expiresAt          DateTime
+
+  @@index([createdAt])
+  @@index([expiresAt])
+}
+
+model AdminSession {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique
+  passwordVersion String
+  scope      String
+  feedbackId String?
+  usedAt     DateTime?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  revokedAt  DateTime?
+
+  @@index([scope, expiresAt])
+  @@index([feedbackId])
+}
+
+model RateLimitBucket {
+  id          String   @id @default(cuid())
+  bucketKey   String   @unique
+  count       Int      @default(0)
+  windowStart DateTime
+  expiresAt   DateTime
+
+  @@index([expiresAt])
+}

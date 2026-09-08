@@ -7,5 +7,7 @@ export const info = {
     view_project: "Xem Dự Án",
     contact: "Liên Hệ Tôi",
     des_contact:"Luôn sẵn sàng cho các cơ hội hợp tác mới hoặc chỉ đơn giản là trò chuyện về công nghệ. Hãy kết nối và cùng nhau xây dựng những điều tuyệt vời.",
-    view_git:"Xem GitHub"
+    view_git:"Xem GitHub",
+    feedback: "Góp ý về tôi",
+    visitor_dashboard: "Quản lý lượt truy cập"
 }

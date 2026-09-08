@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers trackingEnabled={process.env.VISITOR_TRACKING_ENABLED === "true"}>{children}</Providers>
       </body>
       {process.env.NEXT_PUBLIC_GAID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GAID} />

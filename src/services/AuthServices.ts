@@ -45,8 +45,6 @@ export const loginApi = async (email, password) => {
             }
 
         }else{
-            // console.log(errors.response.data);   
-            
             return {
                 success: false,
                 message:errorsString(errors.response.data.message) || 'Lỗi khi đăng nhập',
@@ -66,8 +64,6 @@ export const loginApi = async (email, password) => {
 }
 
 export const LogoutApi = async (userID) => {
-    // console.log("id",userID);
-    
     try {
         await axiosInstance.post(`${API_ROUTES.Logout}/${userID}`);
         return {

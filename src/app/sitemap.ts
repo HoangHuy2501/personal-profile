@@ -18,11 +18,6 @@ const pages = [
     en: "/en/project",
     priority: 0.9,
   },
-  {
-    vi: "/vi/contact",
-    en: "/en/contact",
-    priority: 0.7,
-  },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

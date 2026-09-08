@@ -57,6 +57,16 @@ Các phiên bản dưới đây là dependency đang có trong `package.json`; k
 
 ## Cài đặt và chạy local
 
+### Feedback và thống kê khu vực
+
+Tính năng mới dùng Prisma/PostgreSQL (Neon). Sao chép `.env.example` thành `.env.local`, điền `DATABASE_URL` (pooled runtime), `DATABASE_URL_UNPOOLED` (direct migration), hai bcrypt hash quản trị và `RATE_LIMIT_SECRET`. Tạo hash bằng `npm run password:hash` (mật khẩu được nhập ẩn, không truyền qua CLI). Không đặt hash dưới tiền tố `NEXT_PUBLIC_`.
+
+Chạy `npm run prisma:generate`, tạo migration trên database phát triển bằng `npx prisma migrate dev --name feedback_visitors`, sau đó áp dụng migration đã review bằng `npm run prisma:migrate`. Không chạy migrate/reset trong preview build và không dùng production database cho test.
+
+`VISITOR_TRACKING_ENABLED` giữ cả UI consent và server tracking tắt mặc định; chỉ bật sau khi thông báo/consent phù hợp. Dữ liệu vị trí là ước lượng theo geolocation của Vercel (không GPS, không lưu IP thô), retention mặc định 30 ngày. Chạy `npm run retention:cleanup` theo cron/scheduler riêng; script không tự schedule.
+
+Dashboard nằm tại `/vi/visitor-map` hoặc `/en/visitor-map`, cần mật khẩu location riêng. Feedback ở trang Contact; reply yêu cầu mật khẩu feedback mỗi lần. Visitor visit là lượt mở tab, không phải số người duy nhất. Khi thiếu geolocation, bản ghi vẫn lưu với `unknown` và không tạo điểm 0,0.
+
 ```bash
 git clone <repository-url>
 cd frontend

@@ -1,0 +1,9 @@
+'use client';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
+export default function PasswordDialog({ open, title, description, submitLabel = 'Unlock', children, onClose, onSubmit }: { open: boolean; title: string; description?: string; submitLabel?: string; children?: React.ReactNode; onClose: () => void; onSubmit: (password: string) => Promise<void> }) {
+  const ref = useRef<HTMLDialogElement>(null); const [password, setPassword] = useState(''); const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
+  useEffect(() => { const node = ref.current; if (!node) return; if (open && !node.open) node.showModal(); if (!open && node.open) node.close(); }, [open]);
+  async function submit(event: FormEvent) { event.preventDefault(); setError(''); setBusy(true); try { await onSubmit(password); setPassword(''); } catch (e) { const message = e instanceof Error ? e.message : 'Unable to continue'; setError(message); toast.error(message, { id: 'admin-password-error' }); } finally { setBusy(false); } }
+  return <dialog ref={ref} onCancel={onClose} className="admin-dialog text-text-light dark:text-text-dark"><form onSubmit={submit} method="dialog"><button type="button" className="admin-dialog-close" onClick={onClose} aria-label="Close">×</button><p className="eyebrow">Private area</p><h2 className="text-2xl font-bold mt-2">{title}</h2>{description && <p className="muted mt-2">{description}</p>}{children}<label className="block mt-5 text-sm font-semibold" htmlFor="admin-password">Password</label><input id="admin-password" autoFocus type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className="admin-input" required maxLength={72} />{error && <p className="text-red-500 text-sm mt-2" role="alert">{error}</p>}<button className="mint-button mt-5" disabled={busy}>{busy ? 'Checking…' : submitLabel}</button></form></dialog>;
+}

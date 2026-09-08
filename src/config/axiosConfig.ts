@@ -84,7 +84,6 @@ axiosInstance.interceptors.response.use(
             errorResponse?.message?.toLowerCase().includes('refresh token expired') ||
             errorResponse?.message?.toLowerCase().includes('invalid refresh token')) {
 
-            console.log('🔒 Refresh token đã hết hạn:', errorResponse?.message);
             handleSessionExpired('Phiên đăng nhập đã hết hạn! Vui lòng đăng nhập lại.');
             return Promise.reject(error);
          }
@@ -118,14 +117,12 @@ axiosInstance.interceptors.response.use(
                return axiosInstance(originalRequest);
             } else {
                // Refresh token thất bại
-               console.log('❌ Refresh token thất bại:', result.message);
                handleSessionExpired('Phiên đăng nhập không hợp lệ! Vui lòng đăng nhập lại.');
                return Promise.reject(error);
             }
-         } catch (refreshError) {
-            console.error('❌ Lỗi khi refresh token:', refreshError);
+         } catch {
             handleSessionExpired('Không thể làm mới phiên đăng nhập! Vui lòng đăng nhập lại.');
-            return Promise.reject(refreshError);
+            return Promise.reject(error);
          } finally {
             isRefreshingToken = false;
          }

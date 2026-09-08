@@ -56,12 +56,9 @@ const TokenValidator = ({ children }) => {
           const refreshResult = await refreshToken();
           
           if (refreshResult.success) {
-            console.log('TokenValidator: Refresh token thành công');
             // Token đã được tự động lưu trong hàm refreshToken
             return;
           } else {
-            console.error('TokenValidator: Refresh token thất bại:', refreshResult.message);
-            
             // Refresh thất bại - logout
             toast.error('Không thể làm mới phiên đăng nhập. Vui lòng đăng nhập lại!', {
               duration: 4000,
@@ -73,12 +70,9 @@ const TokenValidator = ({ children }) => {
           handleLogout();
           return;
         }
-      } else {
-        console.log( Math.round(timeUntilExpiry), 'giây');
       }
 
-    } catch (error) {
-      console.error(error);
+    } catch {
       handleLogout();
     }
   };
