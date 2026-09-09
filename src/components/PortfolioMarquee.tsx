@@ -2,22 +2,17 @@
 
 import React from "react";
 import { motion, MotionConfig } from "motion/react";
-
-const capabilities = [
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "PostgreSQL",
-  "Data workflows",
-  "Responsive UI",
-];
+import { useLanguage } from "../hook/useLanguage";
 
 export default function PortfolioMarquee() {
+  const { t } = useLanguage();
+  const copy = t.ui.home;
+  const capabilities = copy.capabilityItems;
   return (
     <MotionConfig reducedMotion="user">
       <section
         className="marquee-band"
-        aria-label="Technology and capabilities"
+        aria-label={copy.capabilities}
       >
         <div className="marquee-viewport">
           <motion.div

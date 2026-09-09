@@ -1,5 +1,6 @@
 // i18nContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import locales from "../locales";
 import { initLang, getLang, setLang, mess } from "../Utils/uti";
 
@@ -11,12 +12,16 @@ const LanguageContext = createContext<any>({
 });
 
 export const LanguageProvider = ({ children }) => {
-  const [lang, setLangState] = useState("vi-VN");
+  const pathname = usePathname();
+  const [lang, setLangState] = useState(() =>
+    pathname?.startsWith("/en") ? "en-US" : pathname?.startsWith("/vi") ? "vi-VN" : "vi-VN",
+  );
 
   useEffect(() => {
     initLang();
-    setLangState(getLang());
-  }, []);
+    const pathLang = pathname?.startsWith("/en") ? "en-US" : pathname?.startsWith("/vi") ? "vi-VN" : undefined;
+    setLangState(pathLang || getLang());
+  }, [pathname]);
 
   useEffect(() => {
     document.documentElement.lang = lang === 'vi-VN' ? 'vi' : 'en';

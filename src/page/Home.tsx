@@ -14,6 +14,7 @@ import ImageDeck from "../components/ImageDeck";
 
 function Home() {
   const { t } = useLanguage();
+  const copy = t.ui.home;
   const skill: Array<[string, React.ReactNode, string]> = useMemo(
     () => [
       ["React", <FaReact />, "#61DBFB"],
@@ -47,7 +48,7 @@ function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
               >
-                Available for new opportunities / Da Nang, Viet Nam
+                {copy.available}
               </Motion.p>
               <Motion.h1
                 className="display-title text-text-light dark:text-text-dark"
@@ -110,40 +111,40 @@ function Home() {
             >
               <div className="flex items-center justify-between mb-5">
                 <span className="font-mono text-xs tracking-[.2em] text-[#6ee7d5]">
-                  / PROFILE.JSON
+                  {copy.profile}
                 </span>
                 <span
                   className="h-2 w-2 rounded-full bg-[#6ee7d5] shadow-[0_0_14px_#6ee7d5]"
-                  aria-label="Available"
+                  aria-label={copy.availableLabel}
                 />
               </div>
               <ImageDeck />
               <div className="space-y-1">
                 <div className="code-line">
                   <span className="ln">01</span>
-                  <span className="key">name:</span>
+                  <span className="key">{copy.name}</span>
                   <span className="value">{t.header.namedev}</span>
                 </div>
                 <div className="code-line">
                   <span className="ln">02</span>
-                  <span className="key">role:</span>
+                  <span className="key">{copy.role}</span>
                   <span className="value">fullstack_dev</span>
                 </div>
                 <div className="code-line">
                   <span className="ln">03</span>
-                  <span className="key">base:</span>
+                  <span className="key">{copy.base}</span>
                   <span className="value">Da_Nang</span>
                 </div>
                 <div className="code-line">
                   <span className="ln">04</span>
-                  <span className="comment">// ship useful things</span>
+                  <span className="comment">{copy.comment}</span>
                 </div>
               </div>
               <a
                 href="mailto:huy04.developer@gmail.com"
                 className="mt-5 inline-flex items-center gap-2 text-sm text-[#b6ece5] hover:text-white transition-colors"
               >
-                Let's connect <MoveUpRight size={15} />
+                {copy.connect} <MoveUpRight size={15} />
               </a>
             </Motion.aside>
           </div>
@@ -151,7 +152,7 @@ function Home() {
         <PortfolioMarquee />
         <section className="pt-20 sm:pt-24">
           <div className="section-rule mb-8 text-[#0f9f8c]">
-            <p className="eyebrow">Toolkit</p>
+            <p className="eyebrow">{copy.toolkit}</p>
           </div>
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
@@ -160,8 +161,7 @@ function Home() {
                 <span className="text-[#0f9f8c]">{t.techSkill.tech}</span>
               </h2>
               <p className="muted mt-4 max-w-xl">
-                A focused stack for shipping dependable products from first
-                screen to production.
+                {copy.stackDescription}
               </p>
             </div>
           </div>

@@ -1,0 +1,20 @@
+export const admin = {
+  close: "Đóng",
+  privateArea: "Khu vực riêng tư",
+  password: "Mật khẩu",
+  checking: "Đang kiểm tra…",
+  unlock: "Mở khóa",
+  unableContinue: "Không thể tiếp tục.",
+  errors: {
+    incorrect_password: "Mật khẩu không đúng.",
+    password_not_configured: "Mật khẩu này chưa được cấu hình.",
+    rate_limited: "Quá nhiều lần thử. Vui lòng thử lại sau.",
+    authentication_required: "Cần xác thực.",
+    invalid_request: "Vui lòng kiểm tra thông tin đã nhập.",
+    generic: "Không thể tiếp tục.",
+    feedback_reply_required: "Nhập nội dung phản hồi.",
+    reply_expired: "Quyền trả lời đã hết hạn. Vui lòng xác thực lại.",
+    reply_submit: "Không thể đăng phản hồi.",
+    unlock_failed: "Không thể mở khóa khu vực này.",
+  },
+} as const;

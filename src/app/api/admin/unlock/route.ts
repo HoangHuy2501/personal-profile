@@ -15,17 +15,17 @@ import {
 export const runtime = "nodejs";
 export async function POST(request: Request) {
   if (!hasValidOrigin(request))
-    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    return NextResponse.json({ error: "Invalid origin", code: "invalid_origin" }, { status: 403 });
   const body = await request.json().catch(() => ({}));
   const scope = parseAdminScope(body?.scope);
   const password = typeof body?.password === "string" ? body.password : "";
   const feedbackId =
     typeof body?.feedbackId === "string" ? body.feedbackId : undefined;
   if (!scope || !password || (scope === ADMIN_SCOPE_REPLY && !feedbackId))
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request", code: "invalid_request" }, { status: 400 });
   if (!process.env.RATE_LIMIT_SECRET)
     return NextResponse.json(
-      { error: "Server security is not configured" },
+      { error: "Server security is not configured", code: "security_not_configured" },
       { status: 503 },
     );
   let limits;
@@ -36,22 +36,22 @@ export async function POST(request: Request) {
     ]);
   } catch {
     return NextResponse.json(
-      { error: "Authentication service is temporarily unavailable" },
+      { error: "Authentication service is temporarily unavailable", code: "auth_unavailable" },
       { status: 503 },
     );
   }
-  // if (!limits[0].allowed || !limits[1].allowed)
-  //   return NextResponse.json(
-  //     { error: "Too many attempts" },
-  //     {
-  //       status: 429,
-  //       headers: {
-  //         "Retry-After": String(
-  //           Math.max(limits[0].retryAfter, limits[1].retryAfter),
-  //         ),
-  //       },
-  //     },
-  //   );
+  if (!limits[0].allowed || !limits[1].allowed)
+    return NextResponse.json(
+      { error: "Too many attempts", code: "rate_limited" },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(
+            Math.max(limits[0].retryAfter, limits[1].retryAfter),
+          ),
+        },
+      },
+    );
   const hash =
     scope === ADMIN_SCOPE_REPLY
       ? process.env.FEEDBACK_REPLY_PASSWORD_HASH || ""
@@ -59,11 +59,11 @@ export async function POST(request: Request) {
       
   if (!hash)
     return NextResponse.json(
-      { error: "Password hash is not configured for this scope" },
+      { error: "Password hash is not configured for this scope", code: "password_not_configured" },
       { status: 503 },
     );
   if (!(await verifyPassword(password, hash)))
-    return NextResponse.json({ error: "Incorrect password" }, { status: 401 });
+    return NextResponse.json({ error: "Incorrect password", code: "incorrect_password" }, { status: 401 });
   const token = await createSession(
     scope,
     hash,

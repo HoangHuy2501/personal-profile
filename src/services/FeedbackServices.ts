@@ -2,7 +2,8 @@ export type FeedbackReply = {
   id: string;
   content: string;
   createdAt: string;
-  author: string;
+  author?: string;
+  authorKey?: "owner";
 };
 export type FeedbackItem = {
   id: string;
@@ -15,13 +16,14 @@ export async function getFeedback(page = 1) {
   const response = await fetch(`/api/feedback?page=${page}`, {
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("feedback");
-  return response.json() as Promise<{
+  const data = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(data?.code || "feedback");
+  return data as {
     items: FeedbackItem[];
     total: number;
     page: number;
     pages: number;
-  }>;
+  };
 }
 export async function postFeedback(input: {
   displayName: string;
@@ -35,7 +37,7 @@ export async function postFeedback(input: {
     body: JSON.stringify(input),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || "feedback");
+  if (!response.ok) throw new Error(data.code || "feedback_submit");
   return data;
 }
 export async function unlockFeedback(password: string, feedbackId: string) {
@@ -45,7 +47,7 @@ export async function unlockFeedback(password: string, feedbackId: string) {
     body: JSON.stringify({ scope: "feedback:reply", password, feedbackId }),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || "unlock");
+  if (!response.ok) throw new Error(data.code || "unlock_failed");
   return data;
 }
 export async function postReply(id: string, content: string) {
@@ -55,6 +57,6 @@ export async function postReply(id: string, content: string) {
     body: JSON.stringify({ content }),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || "reply");
+  if (!response.ok) throw new Error(data.code || "reply");
   return data;
 }

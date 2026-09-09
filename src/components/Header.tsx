@@ -18,6 +18,7 @@ import {
 
 function Header() {
   const { t } = useLanguage();
+  const copy = t.ui.header;
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [locale, setLocale] = useState<Locale>(
@@ -73,7 +74,7 @@ function Header() {
               <span className="brand-avatar">
                 <img
                   src={wf.src}
-                  alt="Nguyen Hoang Huy"
+                  alt={copy.imageAlt}
                   className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-cover"
                 />
                 <i aria-hidden="true" />
@@ -83,14 +84,14 @@ function Header() {
                   {t.header.namedev}
                 </strong>
                 <small className="block mt-0.5 text-[10px] uppercase tracking-[.18em] text-slate-400">
-                  Full-stack developer
+                  {copy.developer}
                 </small>
               </span>
             </Link>
           </motion.div>
           <nav
             className="nav-pill hidden md:flex items-center gap-1"
-            aria-label="Main navigation"
+            aria-label={copy.mainNavigation}
           >
             {data.map(([title, url]) => (
               <Link
@@ -109,7 +110,7 @@ function Header() {
             <a
               className="header-contact"
               href="mailto:huy04.developer@gmail.com"
-              aria-label="Email Nguyen Hoang Huy"
+              aria-label={copy.email}
             >
               <ArrowUpRight size={16} />
             </a>
@@ -119,7 +120,7 @@ function Header() {
             onClick={() => setOpen(!open)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? copy.closeMenu : copy.openMenu}
           >
             {open ? <X size={21} /> : <Menu size={21} />}
           </button>
@@ -136,7 +137,7 @@ function Header() {
             >
               <nav
                 className="flex flex-col gap-1"
-                aria-label="Mobile navigation"
+                aria-label={copy.mobileNavigation}
               >
                 {data.map(([title, url], index) => (
                   <motion.div
@@ -164,7 +165,7 @@ function Header() {
                   className="mobile-email"
                   href="mailto:huy04.developer@gmail.com"
                 >
-                  Let's connect <ArrowUpRight size={15} />
+                  {t.ui.home.connect} <ArrowUpRight size={15} />
                 </a>
               </div>
             </motion.div>

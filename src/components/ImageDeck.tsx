@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import dataImage from "../lib/dataImage";
+import { useLanguage } from "../hook/useLanguage";
 
 function fanOffset(index: number, active: number, count: number) {
   if (count <= 1 || index === active) return 0;
@@ -17,6 +18,8 @@ const clampVisible = (offset: number, count: number) =>
   count <= 4 || Math.abs(offset) <= 2;
 
 export default function ImageDeck() {
+  const { t } = useLanguage();
+  const copy = t.ui.gallery;
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(1024);
@@ -105,13 +108,13 @@ export default function ImageDeck() {
           aria-label={
             isActive
               ? large
-                ? `Current image: ${image.label}`
-                : `Open ${image.label} image`
-              : `Show ${image.label}`
+                ? `${copy.currentImage}: ${copy.labels[index] || image.label}`
+                : `${copy.openImage} ${copy.labels[index] || image.label}`
+              : `${copy.showImage} ${copy.labels[index] || image.label}`
           }
         >
-          <img src={image.src} alt={image.alt} draggable={false} />
-          {large && <span>{image.label}</span>}
+          <img src={image.src} alt={copy.alts[index] || image.alt} draggable={false} />
+          {large && <span>{copy.labels[index] || image.label}</span>}
         </motion.button>
       );
     });
@@ -121,13 +124,13 @@ export default function ImageDeck() {
       <div
         className="image-deck"
         role="region"
-        aria-label="Profile image gallery"
+        aria-label={copy.region}
       >
         <div className="image-deck-stack" aria-live="polite">
           {renderCards(false)}
         </div>
         <div className="image-deck-controls">
-          <button type="button" onClick={previous} aria-label="Previous image">
+          <button type="button" onClick={previous} aria-label={copy.previous}>
             <ChevronLeft size={16} />
           </button>
           <div className="image-deck-dots">
@@ -137,11 +140,11 @@ export default function ImageDeck() {
                 type="button"
                 className={index === active ? "active" : ""}
                 onClick={() => select(index)}
-                aria-label={`Select ${image.label}`}
+                aria-label={`${copy.select} ${copy.labels[index] || image.label}`}
               />
             ))}
           </div>
-          <button type="button" onClick={next} aria-label="Next image">
+          <button type="button" onClick={next} aria-label={copy.next}>
             <ChevronRight size={16} />
           </button>
         </div>
@@ -154,7 +157,7 @@ export default function ImageDeck() {
                 className="image-deck-lightbox"
                 role="dialog"
                 aria-modal="true"
-                aria-label={`${dataImage[active].label} image gallery`}
+                aria-label={`${copy.labels[active] || dataImage[active].label} ${copy.region}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -174,7 +177,7 @@ export default function ImageDeck() {
                     type="button"
                     className="image-deck-close"
                     onClick={() => setExpanded(false)}
-                    aria-label="Close image preview"
+                    aria-label={copy.close}
                   >
                     <X size={19} />
                   </button>
@@ -182,7 +185,7 @@ export default function ImageDeck() {
                     {renderCards(true)}
                   </div>
                   <div className="image-deck-modal-bar">
-                    <span>{dataImage[active].label}</span>
+                    <span>{copy.labels[active] || dataImage[active].label}</span>
                     <span>
                       {active + 1} / {count}
                     </span>
@@ -191,7 +194,7 @@ export default function ImageDeck() {
                     type="button"
                     className="image-deck-nav prev"
                     onClick={previous}
-                    aria-label="Previous image"
+                    aria-label={copy.previous}
                   >
                     <ChevronLeft />
                   </button>
@@ -199,7 +202,7 @@ export default function ImageDeck() {
                     type="button"
                     className="image-deck-nav next"
                     onClick={next}
-                    aria-label="Next image"
+                    aria-label={copy.next}
                   >
                     <ChevronRight />
                   </button>

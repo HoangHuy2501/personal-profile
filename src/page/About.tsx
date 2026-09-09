@@ -12,6 +12,7 @@ import ButtonLink from "../components/customButton/ButtonLink";
 
 function About() {
   const { t } = useLanguage();
+  const copy = t.ui.about;
   return (
     <MotionConfig reducedMotion="user">
       <div className="page-wrap">
@@ -20,9 +21,9 @@ function About() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="eyebrow mb-3">Profile / 01</p>
+          <p className="eyebrow mb-3">{copy.eyebrow}</p>
           <h1 className="section-title text-text-light dark:text-text-dark">
-            A builder who stays <span className="outline-text">curious.</span>
+            {copy.heading} <span className="outline-text">{copy.headingAccent}</span>
           </h1>
           <div className="accent-line mt-5" />
         </motion.header>

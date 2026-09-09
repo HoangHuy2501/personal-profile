@@ -12,19 +12,19 @@ export async function POST(
   context: { params: Promise<{ id: string }> },
 ) {
   if (!hasValidOrigin(request))
-    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    return NextResponse.json({ error: "Invalid origin", code: "invalid_origin" }, { status: 403 });
   const { id } = await context.params;
   const session = await readSession(ADMIN_SCOPE_REPLY, id);
   if (!session || session.usedAt)
     return NextResponse.json(
-      { error: "Reply permission expired" },
+      { error: "Reply permission expired", code: "reply_expired" },
       { status: 401 },
     );
   const body = await request.json().catch(() => ({}));
   const content = typeof body.content === "string" ? body.content.trim() : "";
   if (content.length < 1 || content.length > 2000)
     return NextResponse.json(
-      { error: "Reply must be 1-2000 characters" },
+      { error: "Reply must be 1-2000 characters", code: "reply_validation" },
       { status: 400 },
     );
   try {
@@ -45,7 +45,7 @@ export async function POST(
       {
         id: reply.id,
         createdAt: reply.createdAt.toISOString(),
-        author: "Nguyễn Hoàng Huy · Chủ website",
+        authorKey: "owner",
       },
       { headers: { "Cache-Control": "private, no-store" } },
     );
@@ -56,6 +56,9 @@ export async function POST(
           error instanceof Error && error.message === "grant-used"
             ? "Reply permission expired"
             : "Could not save reply",
+        code: error instanceof Error && error.message === "grant-used"
+          ? "reply_expired"
+          : "reply_submit",
       },
       { status: 409 },
     );

@@ -1,0 +1,20 @@
+export const admin = {
+  close: "Close",
+  privateArea: "Private area",
+  password: "Password",
+  checking: "Checking…",
+  unlock: "Unlock",
+  unableContinue: "Unable to continue.",
+  errors: {
+    incorrect_password: "Incorrect password.",
+    password_not_configured: "This password is not configured.",
+    rate_limited: "Too many attempts. Please try again later.",
+    authentication_required: "Authentication required.",
+    invalid_request: "Please check the submitted details.",
+    generic: "Unable to continue.",
+    feedback_reply_required: "Enter a reply.",
+    reply_expired: "This reply permission has expired. Please authenticate again.",
+    reply_submit: "Unable to publish reply.",
+    unlock_failed: "Unable to unlock this area.",
+  },
+} as const;

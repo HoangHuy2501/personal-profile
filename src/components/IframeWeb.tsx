@@ -1,7 +1,9 @@
 'use client';
 import React, { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../hook/useLanguage";
 
 function IframeWeb({ url }) {
+  const { t } = useLanguage();
   const wrapperRef = useRef(null);
   const [scale, setScale] = useState(1);
 
@@ -32,7 +34,7 @@ function IframeWeb({ url }) {
       >
         <iframe
           src={url}
-          title="Desktop Preview"
+          title={t.ui.iframePreview}
           className="absolute top-0 left-0 border-0 origin-top-left"
           style={{
             width: DESKTOP_WIDTH,
