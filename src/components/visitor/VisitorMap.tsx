@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
+
 import {
   Bar,
   BarChart,
@@ -20,6 +21,7 @@ import {
   unlockLocations,
 } from "../../services/VisitorServices";
 import PasswordDialog from "../admin/PasswordDialog";
+import { useRouter } from "next/navigation";
 
 function LeafletLoading() {
   const { t } = useLanguage();
@@ -60,6 +62,7 @@ export default function VisitorMap() {
     const from = new Date(Date.now() - range * 86400000);
     return { from: from.toISOString(), to: to.toISOString() };
   }, [range]);
+  const router = useRouter();
 
   useEffect(() => {
     if (!unlocked) return;
@@ -109,7 +112,7 @@ export default function VisitorMap() {
             open={dialog}
             title={copy.unlockTitle}
             description={copy.unlockDescription}
-            onClose={() => {}}
+            onClose={() => router.back()}
             onSubmit={unlock}
           />
         </div>

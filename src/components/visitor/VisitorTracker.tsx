@@ -48,13 +48,13 @@ export default function VisitorTracker({ enabled }: { enabled: boolean }) {
         }}>
           {copy.allow}
         </button>
-        <button className="text-link" onClick={() => {
+        {/* <button className="text-link" onClick={() => {
           localStorage.setItem("visitor-consent", "no");
           setChoice("no");
           toast.message(copy.disabled);
         }}>
           {copy.disable}
-        </button>
+        </button> */}
       </div>
     </aside>
   );

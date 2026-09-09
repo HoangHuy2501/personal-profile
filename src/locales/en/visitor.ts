@@ -44,8 +44,8 @@ export const visitor = {
     unknown: "Something went wrong. Please try again.",
   },
   consent: {
-    notice: "This site estimates visitor region for statistics. No GPS or raw IP is stored.",
-    noticeSecondary: "Website ghi nhận khu vực truy cập gần đúng để thống kê. Không thu GPS hoặc lưu địa chỉ IP thô.",
+    notice: "While you’re here, leave a little hello 👋",
+    noticeSecondary: "A little tap to let me know you stopped by. Thanks for spending some time in my little corner of the internet!",
     allow: "Allow",
     disable: "Disable",
     enabled: "Visitor statistics enabled.",

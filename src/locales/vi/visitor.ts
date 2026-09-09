@@ -44,8 +44,8 @@ export const visitor = {
     unknown: "Đã xảy ra lỗi. Vui lòng thử lại.",
   },
   consent: {
-    notice: "Website ghi nhận khu vực truy cập gần đúng để thống kê. Không thu GPS hoặc lưu địa chỉ IP thô.",
-    noticeSecondary: "This site estimates visitor region for statistics. No GPS or raw IP is stored.",
+    notice: "Ghé rồi, để lại một lời chào nhé 👋",
+    noticeSecondary: "Một cái chạm nhỏ để mình biết bạn đã ghé chơi. Cảm ơn bạn đã dành thời gian cho góc nhỏ này!",
     allow: "Cho phép",
     disable: "Tắt",
     enabled: "Đã bật thống kê lượt truy cập.",
